@@ -1,0 +1,27 @@
+{
+  "model": "sonnet",
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$OSTYPE\" == \"msys\" || \"$OSTYPE\" == \"cygwin\" || -n \"$WSL_DISTRO_NAME\" ]]; then powershell.exe -c \"(New-Object Media.SoundPlayer '$(wslpath -w .claude/hooksounds/task_complete.wav)').PlaySync()\"; else aplay .claude/hooksounds/task_complete.wav 2>/dev/null || afplay .claude/hooksounds/task_complete.wav 2>/dev/null || printf '\\a'; fi"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [[ \"$OSTYPE\" == \"msys\" || \"$OSTYPE\" == \"cygwin\" || -n \"$WSL_DISTRO_NAME\" ]]; then powershell.exe -c \"(New-Object Media.SoundPlayer '$(wslpath -w .claude/hooksounds/task_waiting.wav)').PlaySync()\"; else aplay .claude/hooksounds/task_waiting.wav 2>/dev/null || afplay .claude/hooksounds/task_waiting.wav 2>/dev/null || printf '\\a'; fi"
+          }
+        ]
+      }
+    ]
+  }
+}
