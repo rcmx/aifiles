@@ -1,0 +1,2 @@
+cp .claude ~/ -recurse -force
+
