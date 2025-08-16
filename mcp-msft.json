@@ -1,0 +1,34 @@
+{
+    "inputs": {
+        "postgresUrl": {
+            "description": "Enter your PostgreSQL connection URL",
+            "default": "postgresql://user:password@localhost:5432/database"
+        }
+    },
+    "servers": {
+        "context7": {
+            "command": "npx",
+            "args": ["@upstash/context7-mcp"]
+        },
+        "playwright": {
+            "command": "npx",
+            "args": ["@playwright/mcp@latest"]
+        },
+        "postgres": {
+            "command": "docker",
+            "args": [
+                "run",
+                "-i",
+                "--rm",
+                "-e",
+                "POSTGRES_URL",
+                "mcp/postgres",
+                "${input:postgresUrl}"
+            ]
+        },
+        "microsoft-learn": {
+            "command": "npx",
+            "args": ["@microsoft/microsoft-learn-mcp"]
+        }
+    }
+}
