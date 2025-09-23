@@ -1,10 +1,20 @@
 {
-    "inputs": {
-        "postgresUrl": {
+    "inputs": [
+       {
+           "id": "postgresUrl_cs",
+            "type": "promptString",
             "description": "Enter your PostgreSQL connection URL",
-            "default": "postgresql://user:password@localhost:5432/database"
+            "default": "postgresql://user:password@host.docker.internal:5432/database"
+        },
+        {
+            "id": "mssql_cs",
+            "type": "promptString",
+            "description": "Enter your mssql connection string",
+            "xdefault": "Data Source=localhost;Initial Catalog=vcc;User Id=vcc_user;Password=Password1;Application Name=VCC",
+            "default": "Data Source=host.docker.internal;Initial Catalog=dbName;User Id=user;Password=Password1;Trusted_Connection=False;TrustServerCertificate=True"
+
         }
-    },
+    ],
     "servers": {
         "context7": {
             "command": "npx",
@@ -23,8 +33,14 @@
                 "-e",
                 "POSTGRES_URL",
                 "mcp/postgres",
-                "${input:postgresUrl}"
+                "${input:postgresUrl_cs}"
             ]
+        },
+        "mssql": {
+            "command": "D:\\dev\\os\\SQL-AI-samples\\MssqlMcp\\dotnet\\MssqlMcp\\bin\\Debug\\net8.0\\MssqlMcp.exe",
+            "env" : {
+                "CONNECTION_STRING": "${input:mssql_cs}"
+            }
         },
         "microsoft-learn": {
             "command": "npx",
